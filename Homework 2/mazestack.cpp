@@ -2,6 +2,8 @@
 #include <string>
 #include <stack>
 
+using namespace std;
+
 class Coord
 {
 public:
@@ -12,3 +14,9 @@ private:
     int m_r;
     int m_c;
 };
+
+bool pathExists(string maze[], int nRows, int nCols, int sr, int sc, int er, int ec){
+    // Return true if there is a path from (sr,sc) to (er,ec)
+    // through the maze; return false otherwise
+    return true;
+}
