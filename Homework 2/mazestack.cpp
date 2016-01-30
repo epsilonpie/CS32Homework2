@@ -18,5 +18,12 @@ private:
 bool pathExists(string maze[], int nRows, int nCols, int sr, int sc, int er, int ec){
     // Return true if there is a path from (sr,sc) to (er,ec)
     // through the maze; return false otherwise
+    stack<Coord> list;
+    Coord begin(sr, sc);
+    Coord end(er, ec);
+    list.push(begin);
+    
+    
     return true;
+    
 }
