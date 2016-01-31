@@ -1,15 +1,11 @@
-//
-//  main.cpp
-//  Problem 5
-//
-//  Created by Gopi Suresh on 1/30/16.
-//  Copyright © 2016 Gopi. All rights reserved.
-//
-
+#include "Map.h"
 #include <iostream>
+#include <string>
+#include <stack>
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+using namespace std;
+
+int evaluate(string infix, const Map& values, string& postfix, int& result)
+{
     return 0;
 }
