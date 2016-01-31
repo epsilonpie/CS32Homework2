@@ -3,6 +3,42 @@
 #include <queue>
 
 using namespace std;
+bool pathExists(string maze[], int nRows, int nCols, int sr, int sc, int er, int ec){
+    // Return true if there is a path from (sr,sc) to (er,ec)
+    // through the maze; return false otherwise
+    queue<Coord> list;
+    Coord begin(sr, sc);
+    Coord end(er, ec);
+    list.push(begin);
+    maze[sr][sc] = '-';
+    
+    while (!list.empty()) {
+        Coord top = list.top();
+        
+        list.pop();
+        if (top.r() == er && top.c() == ec)
+            return true;
+        if (maze[top.r()-1][top.c()] == '.'){ // check north
+            maze[top.r()-1][top.c()] = '-';
+            list.push(Coord(top.r()-1, top.c()));
+        }
+        if (maze[top.r()][top.c()+1] == '.'){ // check east
+            maze[top.r()][top.c()+1] = '-';
+            list.push(Coord(top.r(), top.c()+1));
+        }
+        if (maze[top.r()+1][top.c()] == '.'){ // check south
+            maze[top.r()+1][top.c()] = '-';
+            list.push(Coord(top.r()+1, top.c()));
+        }
+        if (maze[top.r()][top.c()-1] == '.'){ // check west
+            maze[top.r()][top.c()-1] = '-';
+            list.push(Coord(top.r(), top.c()-1));
+        }
+    }
+    
+    return false;
+    
+}
 
 int main(){
     string maze[10] = {
