@@ -1,9 +1,9 @@
 #include <iostream>
 #include <string>
 #include <stack>
-#include "Map.h"
 #include <cassert>
 #include <cctype>
+#include "Map.h"
 
 using namespace std;
 
@@ -28,7 +28,53 @@ int evaluate(string infix, const Map& values, string& postfix, int& result){
     //   result is unchanged and the function returns 3; otherwise,
     //   result is set to the value of the expression and the function
     //   returns 0.
-    
+    postfix = "";
+    stack<char> opers;
+    for (int i = 0; i < infix.length(); i++) {
+        switch (infix[i]) {
+            case '(':
+                opers.push(infix[i]);
+                break;
+            case ')':
+                while (opers.top() != '('){
+                    postfix = postfix + opers.top();
+                    opers.pop();
+                }
+                opers.pop();
+                break;
+            case '+':
+                while(!opers.empty() && opers.top()!= '(' && opers.top() != '*' && opers.top() != '/'){
+                    postfix = postfix + opers.top();
+                    opers.pop();
+                    opers.push('+');
+                }
+                break;
+            case '-':
+                while(!opers.empty() && opers.top()!= '(' && opers.top() != '*' && opers.top() != '/'){
+                    postfix = postfix + opers.top();
+                    opers.pop();
+                    opers.push('-');
+                }
+                break;
+            case '*':
+                while(!opers.empty() && opers.top()!= '('){
+                    postfix = postfix + opers.top();
+                    opers.pop();
+                    opers.push('*');
+                }
+                break;
+            case '/':
+                while(!opers.empty() && opers.top()!= '('){
+                    postfix = postfix + opers.top();
+                    opers.pop();
+                    opers.push('/');
+                }
+                break;
+            default:
+                postfix = postfix + infix[i];
+                break;
+        }
+    }
     return 0;
 
 }
