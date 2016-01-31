@@ -22,9 +22,11 @@ bool pathExists(string maze[], int nRows, int nCols, int sr, int sc, int er, int
     Coord begin(sr, sc);
     Coord end(er, ec);
     list.push(begin);
+    maze[sr][sc] = '-';
     
     while (!list.empty()) {
         Coord top = list.top();
+        
         list.pop();
         if (top.r() == er && top.c() == ec)
             return true;
@@ -64,7 +66,7 @@ int main(){
         "XXXXXXXXXX"
     };
     
-    if (pathExists(maze, 10,10, 8,8, 8,1))
+    if (pathExists(maze, 10,10, 6,4, 1,1))
         cout << "Solvable!" << endl;
     else
         cout << "Out of luck!" << endl;
