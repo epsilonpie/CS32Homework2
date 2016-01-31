@@ -45,33 +45,30 @@ int evaluate(string infix, const Map& values, string& postfix, int& result){
                 opers.pop();
                 break;
             case '+':
-                while(!opers.empty() && opers.top()!= '(' && opers.top() != '*' && opers.top() != '/'){
+                while(!opers.empty() && opers.top()!= '('){
                     postfix = postfix + opers.top();
                     opers.pop();
-                    
                 }
                 opers.push('+');
                 break;
             case '-':
-                while(!opers.empty() && opers.top()!= '(' && opers.top() != '*' && opers.top() != '/'){
+                while(!opers.empty() && opers.top()!= '('){
                     postfix = postfix + opers.top();
                     opers.pop();
-                    
                 }
                 opers.push('-');
                 break;
             case '*':
-                while(!opers.empty() && opers.top()!= '('){
+                while(!opers.empty() && opers.top()!= '(' && opers.top() != '+' && opers.top() != '-'){
                     postfix = postfix + opers.top();
                     opers.pop();
                 }
                 opers.push('*');
                 break;
             case '/':
-                while(!opers.empty() && opers.top()!= '('){
+                while(!opers.empty() && opers.top()!= '(' && opers.top() != '+' && opers.top() != '-'){
                     postfix = postfix + opers.top();
                     opers.pop();
-                    
                 }
                 opers.push('/');
                 break;
