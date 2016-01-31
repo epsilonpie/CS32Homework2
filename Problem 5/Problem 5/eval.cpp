@@ -22,7 +22,7 @@ int operate(int var1, int var2, char& o){
         case '/':
             if (var2 == 0){
                 o = 'p';
-                break;
+                return -1;
             } else{
                 return var1/var2;
             }
@@ -56,10 +56,22 @@ int evaluate(string infix, const Map& values, string& postfix, int& result){
 
     //check initial conditions
     for(int i = 0; i<infix.length(); i++){
-        if (!(islower(infix[i]) || isOperator(infix[i]))) {
-            return 0;
+        if (!(islower(infix[i]) || isOperator(infix[i])|| infix[i]==' ')) {
+            return 1;
         }
     }
+    //check paranthases
+    int l = 0;
+    int r = 0;
+    for(int i = 0; i<infix.length(); i++){
+        if (infix[i]=='(')
+            l++;
+        if (infix[i]==')')
+            r++;
+        if (l!=r)
+            return 1;
+    }
+    
     
     postfix = "";
     stack<char> opers;
@@ -126,14 +138,19 @@ int evaluate(string infix, const Map& values, string& postfix, int& result){
             int var1 = nums.top();
             nums.pop();
             int ans = operate(var1, var2, postfix[i]);
+            if (postfix[i] == 'p')
+                return 3;
             nums.push(ans);
         } else{
             int val = 0;
-            values.get(postfix[i], val);
+            if(values.contains(postfix[i]))
+                values.get(postfix[i], val);
+            else
+                return 2;
             nums.push(val);
         }
-            
     }
+    result = nums.top();
     return 0;
 
 }
@@ -142,37 +159,40 @@ int main()
 {
     char vars[] = { 'a', 'e', 'i', 'o', 'u', 'y', '#' };
     int  vals[] = {  3,  -9,   6,   2,   4,   1  };
+    
     Map m;
     for (int k = 0; vars[k] != '#'; k++)
         m.insert(vars[k], vals[k]);
     string pf;
     int answer;
-//    assert(evaluate("a+ e", m, pf, answer) == 0  &&
-//           pf == "ae+"  &&  answer == -6);
-//    answer = 999;
-//    assert(evaluate("", m, pf, answer) == 1  &&  answer == 999);
-//    assert(evaluate("a+", m, pf, answer) == 1  &&  answer == 999);
-//    assert(evaluate("a i", m, pf, answer) == 1  &&  answer == 999);
-//    assert(evaluate("ai", m, pf, answer) == 1  &&  answer == 999);
-//    assert(evaluate("()", m, pf, answer) == 1  &&  answer == 999);
-//    assert(evaluate("y(o+u)", m, pf, answer) == 1  &&  answer == 999);
-//    assert(evaluate("a+E", m, pf, answer) == 1  &&  answer == 999);
-//    assert(evaluate("(a+(i-o)", m, pf, answer) == 1  &&  answer == 999);
-//    // unary operators not allowed:
-//    assert(evaluate("-a", m, pf, answer) == 1  &&  answer == 999);
-//    assert(evaluate("a*b", m, pf, answer) == 2  &&
-//           pf == "ab*"  &&  answer == 999);
-//    assert(evaluate("y +o *(   a-u)  ", m, pf, answer) == 0  &&
-//           pf == "yoau-*+"  &&  answer == -1);
-//    answer = 999;
-//    assert(evaluate("o/(y-y)", m, pf, answer) == 3  &&
-//           pf == "oyy-/"  &&  answer == 999);
-//    assert(evaluate(" a  ", m, pf, answer) == 0  &&
-//           pf == "a"  &&  answer == 3);
-//    assert(evaluate("((a))", m, pf, answer) == 0  &&
-//           pf == "a"  &&  answer == 3);
-//    cout << "Passed all tests" << endl;
-    evaluate("a+b/c*u", m, pf, answer);
-    cout << pf << endl;
+    assert(evaluate("a+ e", m, pf, answer) == 0  &&
+           pf == "ae+"  &&  answer == -6);
+    answer = 999;
+    //assert(evaluate("", m, pf, answer) == 1  &&  answer == 999);
+    assert(evaluate("a+", m, pf, answer) == 1  &&  answer == 999);
+    assert(evaluate("a i", m, pf, answer) == 1  &&  answer == 999);
+    assert(evaluate("ai", m, pf, answer) == 1  &&  answer == 999);
+    assert(evaluate("()", m, pf, answer) == 1  &&  answer == 999);
+    assert(evaluate("y(o+u)", m, pf, answer) == 1  &&  answer == 999);
+    assert(evaluate("a+E", m, pf, answer) == 1  &&  answer == 999);
+    assert(evaluate("(a+(i-o)", m, pf, answer) == 1  &&  answer == 999);
+    // unary operators not allowed:
+    assert(evaluate("-a", m, pf, answer) == 1  &&  answer == 999);
+    assert(evaluate("a*b", m, pf, answer) == 2  &&
+           pf == "ab*"  &&  answer == 999);
+    assert(evaluate("y +o *(   a-u)  ", m, pf, answer) == 0  &&
+           pf == "yoau-*+"  &&  answer == -1);
+    answer = 999;
+    assert(evaluate("o/(y-y)", m, pf, answer) == 3  &&
+           pf == "oyy-/"  &&  answer == 999);
+    assert(evaluate(" a  ", m, pf, answer) == 0  &&
+           pf == "a"  &&  answer == 3);
+    assert(evaluate("((a))", m, pf, answer) == 0  &&
+           pf == "a"  &&  answer == 3);
+    cout << "Passed all tests" << endl;
+    cout << evaluate("a+e", m, pf, answer) << endl;
+    cout << pf <<endl;
+    cout << answer << endl;
+    
     
 }
