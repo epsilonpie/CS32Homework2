@@ -7,8 +7,8 @@
 // way of enabling us to have Maps of different types.  For now, we'll
 // use a typedef.
 
-typedef some key type KeyType;
-typedef some value type ValueType;
+typedef char KeyType;
+typedef int ValueType;
 
 class Map
 {
@@ -154,4 +154,3 @@ bool Map::insertOrUpdate(const KeyType& key, const ValueType& value)
 }
 
 #endif // MAP_INCLUDED
-===================================================================
