@@ -1,4 +1,4 @@
-2. The following are the first 12 coordinates to be popped.
+2. The following are the first 12 coordinates to be popped in the stack implementation.
 
 Row: 6	Col: 4
 Row: 6	Col: 3
@@ -12,3 +12,17 @@ Row: 7	Col: 8
 Row: 6	Col: 6
 Row: 5	Col: 4
 Row: 4	Col: 4
+
+4. The following are the first 12 coordinates to be popped in the queue implementation.
+Row: 6	Col: 4
+Row: 5	Col: 4
+Row: 6	Col: 5
+Row: 6	Col: 3
+Row: 4	Col: 4
+Row: 6	Col: 6
+Row: 7	Col: 5
+Row: 3	Col: 4
+Row: 4	Col: 5
+Row: 8	Col: 5
+Row: 2	Col: 4
+Row: 4	Col: 6
