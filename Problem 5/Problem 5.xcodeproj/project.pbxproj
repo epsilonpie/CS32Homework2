@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		607BE3371C5DB0A80025E246 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 607BE3361C5DB0A80025E246 /* main.cpp */; };
+		607BE3371C5DB0A80025E246 /* eval.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 607BE3361C5DB0A80025E246 /* eval.cpp */; };
+		607BE33F1C5DB3770025E246 /* map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 607BE33E1C5DB3770025E246 /* map.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +25,9 @@
 
 /* Begin PBXFileReference section */
 		607BE3331C5DB0A80025E246 /* Problem 5 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Problem 5"; sourceTree = BUILT_PRODUCTS_DIR; };
-		607BE3361C5DB0A80025E246 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		607BE3361C5DB0A80025E246 /* eval.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = eval.cpp; sourceTree = "<group>"; };
+		607BE33D1C5DB33F0025E246 /* map.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = map.h; sourceTree = "<group>"; };
+		607BE33E1C5DB3770025E246 /* map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +60,9 @@
 		607BE3351C5DB0A80025E246 /* Problem 5 */ = {
 			isa = PBXGroup;
 			children = (
-				607BE3361C5DB0A80025E246 /* main.cpp */,
+				607BE3361C5DB0A80025E246 /* eval.cpp */,
+				607BE33D1C5DB33F0025E246 /* map.h */,
+				607BE33E1C5DB3770025E246 /* map.cpp */,
 			);
 			path = "Problem 5";
 			sourceTree = "<group>";
@@ -118,7 +123,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607BE3371C5DB0A80025E246 /* main.cpp in Sources */,
+				607BE33F1C5DB3770025E246 /* map.cpp in Sources */,
+				607BE3371C5DB0A80025E246 /* eval.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
