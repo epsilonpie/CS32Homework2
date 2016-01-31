@@ -7,6 +7,31 @@
 
 using namespace std;
 
+bool isOperator(char c){
+    return (c == '+' || c=='-' || c=='*' || c=='/');
+}
+
+int operate(int var1, int var2, char& o){
+    switch (o) {
+        case '+':
+            return var1+var2;
+        case '-':
+            return var1-var2;
+        case '*':
+            return var1*var2;
+        case '/':
+            if (var2 == 0){
+                o = 'p';
+                break;
+            } else{
+                return var1/var2;
+            }
+        default:
+            break;
+    }
+    return 0;
+}
+
 int evaluate(string infix, const Map& values, string& postfix, int& result){
     // Evaluates an integer arithmetic expression
     // Precondition: infix is an infix integer arithmetic
@@ -28,6 +53,14 @@ int evaluate(string infix, const Map& values, string& postfix, int& result){
     //   result is unchanged and the function returns 3; otherwise,
     //   result is set to the value of the expression and the function
     //   returns 0.
+
+    //check initial conditions
+    for(int i = 0; i<infix.length(); i++){
+        if (!(islower(infix[i]) || isOperator(infix[i]))) {
+            return 0;
+        }
+    }
+    
     postfix = "";
     stack<char> opers;
     for (int i = 0; i < infix.length(); i++) {
@@ -73,6 +106,7 @@ int evaluate(string infix, const Map& values, string& postfix, int& result){
                 opers.push('/');
                 break;
             default:
+                
                 postfix = postfix + infix[i];
                 break;
         }
@@ -83,8 +117,22 @@ int evaluate(string infix, const Map& values, string& postfix, int& result){
         opers.pop();
     }
     
+    //collect value
+    stack<int> nums;
     for (int i = 0; i<postfix.length(); i++){
-        
+        if(isOperator(postfix[i])){
+            int var2 = nums.top();
+            nums.pop();
+            int var1 = nums.top();
+            nums.pop();
+            int ans = operate(var1, var2, postfix[i]);
+            nums.push(ans);
+        } else{
+            int val = 0;
+            values.get(postfix[i], val);
+            nums.push(val);
+        }
+            
     }
     return 0;
 
