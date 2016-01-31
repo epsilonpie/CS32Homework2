@@ -28,6 +28,22 @@ bool pathExists(string maze[], int nRows, int nCols, int sr, int sc, int er, int
         list.pop();
         if (top.r() == er && top.c() == ec)
             return true;
+        if (maze[top.r()-1][top.c()] == '.'){ // check north
+            maze[top.r()-1][top.c()] = '-';
+            list.push(Coord(top.r()-1, top.c()));
+        }
+        if (maze[top.r()][top.c()+1] == '.'){ // check east
+            maze[top.r()][top.c()+1] = '-';
+            list.push(Coord(top.r(), top.c()+1));
+        }
+        if (maze[top.r()+1][top.c()] == '.'){ // check south
+            maze[top.r()+1][top.c()] = '-';
+            list.push(Coord(top.r()+1, top.c()));
+        }
+        if (maze[top.r()][top.c()-1] == '.'){ // check west
+            maze[top.r()][top.c()-1] = '-';
+            list.push(Coord(top.r(), top.c()-1));
+        }
     }
     
     return false;
