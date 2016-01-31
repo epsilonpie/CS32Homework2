@@ -82,6 +82,10 @@ int evaluate(string infix, const Map& values, string& postfix, int& result){
         postfix = postfix + opers.top();
         opers.pop();
     }
+    
+    for (int i = 0; i<postfix.length(); i++){
+        
+    }
     return 0;
 
 }
@@ -120,7 +124,7 @@ int main()
 //    assert(evaluate("((a))", m, pf, answer) == 0  &&
 //           pf == "a"  &&  answer == 3);
 //    cout << "Passed all tests" << endl;
-    evaluate("a+ e*u", m, pf, answer);
+    evaluate("a+b/c*u", m, pf, answer);
     cout << pf << endl;
     
 }
