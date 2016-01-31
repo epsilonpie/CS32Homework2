@@ -23,7 +23,13 @@ bool pathExists(string maze[], int nRows, int nCols, int sr, int sc, int er, int
     Coord end(er, ec);
     list.push(begin);
     
+    while (!list.empty()) {
+        Coord top = list.top();
+        list.pop();
+        if (top.r() == er && top.c() == ec)
+            return true;
+    }
     
-    return true;
+    return false;
     
 }
