@@ -195,7 +195,7 @@ int main()
     string pf;
     int answer;
     
-    cout << evaluate("a+e", m, pf, answer) << endl;
+    cout << evaluate("((a+e)*(a+e))/((a+e)*(a+e))", m, pf, answer) << endl;
     cout << pf <<endl;
     cout << answer << endl;
     
