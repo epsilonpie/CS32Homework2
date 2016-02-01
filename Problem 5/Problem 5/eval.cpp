@@ -1,4 +1,4 @@
-#include <iostream>
+    #include <iostream>
 #include <string>
 #include <stack>
 #include <cassert>
@@ -11,7 +11,7 @@ bool isOperator(char c){
     return (c == '+' || c=='-' || c=='*' || c=='/');
 }
 
-int operate(int var1, int var2, char& o){
+int operate(int var1, int var2, char o, char& good){
     switch (o) {
         case '+':
             return var1+var2;
@@ -21,7 +21,7 @@ int operate(int var1, int var2, char& o){
             return var1*var2;
         case '/':
             if (var2 == 0){
-                o = 'p';
+                good = 'p';
                 return -1;
             } else{
                 return var1/var2;
@@ -31,6 +31,8 @@ int operate(int var1, int var2, char& o){
     }
     return 0;
 }
+
+
 
 int evaluate(string infix, const Map& values, string& postfix, int& result){
     // Evaluates an integer arithmetic expression
@@ -54,10 +56,15 @@ int evaluate(string infix, const Map& values, string& postfix, int& result){
     //   result is set to the value of the expression and the function
     //   returns 0.
 
+    //check if empty
+    if (infix.length()==0) {
+        return 1;
+    }
     //check initial conditions
+    bool r1 = false;
     for(int i = 0; i<infix.length(); i++){
-        if (!(islower(infix[i]) || isOperator(infix[i])|| infix[i]==' ')) {
-            return 1;
+        if (!(islower(infix[i]) || isOperator(infix[i])|| infix[i]==' '|| infix[i]=='('|| infix[i]==')')) {
+            r1 = true;
         }
     }
     //check paranthases
@@ -68,10 +75,31 @@ int evaluate(string infix, const Map& values, string& postfix, int& result){
             l++;
         if (infix[i]==')')
             r++;
-        if (l!=r)
-            return 1;
     }
-    
+    if (l!=r)
+        r1 = true;
+    //check if there are numbers without operators in between
+    stack<char> check;
+    for(int i = 0; i<infix.length(); i++){
+        if(check.empty() && islower(infix[i])){
+            check.push(infix[i]);
+        }else if(check.empty() && isOperator(infix[i])){
+            r1 = true;
+        }else if (islower(infix[i]) && islower(check.top())) {
+            r1 = true;
+        } else if(isOperator(infix[i]) && isOperator(check.top())){
+            r1 = true;
+        } else if(isOperator(infix[i]) && islower(check.top())){
+            check.push(infix[i]);
+        } else if(islower(infix[i]) && isOperator(check.top())){
+            check.push(infix[i]);
+        }
+    }
+    if (check.empty()) {
+        return 1;
+    }
+    if(r1 || isOperator(check.top()))
+        return 1;
     
     postfix = "";
     stack<char> opers;
@@ -137,8 +165,9 @@ int evaluate(string infix, const Map& values, string& postfix, int& result){
             nums.pop();
             int var1 = nums.top();
             nums.pop();
-            int ans = operate(var1, var2, postfix[i]);
-            if (postfix[i] == 'p')
+            char good;
+            int ans = operate(var1, var2, postfix[i], good);
+            if (good == 'p')
                 return 3;
             nums.push(ans);
         } else{
@@ -165,31 +194,7 @@ int main()
         m.insert(vars[k], vals[k]);
     string pf;
     int answer;
-    assert(evaluate("a+ e", m, pf, answer) == 0  &&
-           pf == "ae+"  &&  answer == -6);
-    answer = 999;
-    //assert(evaluate("", m, pf, answer) == 1  &&  answer == 999);
-    assert(evaluate("a+", m, pf, answer) == 1  &&  answer == 999);
-    assert(evaluate("a i", m, pf, answer) == 1  &&  answer == 999);
-    assert(evaluate("ai", m, pf, answer) == 1  &&  answer == 999);
-    assert(evaluate("()", m, pf, answer) == 1  &&  answer == 999);
-    assert(evaluate("y(o+u)", m, pf, answer) == 1  &&  answer == 999);
-    assert(evaluate("a+E", m, pf, answer) == 1  &&  answer == 999);
-    assert(evaluate("(a+(i-o)", m, pf, answer) == 1  &&  answer == 999);
-    // unary operators not allowed:
-    assert(evaluate("-a", m, pf, answer) == 1  &&  answer == 999);
-    assert(evaluate("a*b", m, pf, answer) == 2  &&
-           pf == "ab*"  &&  answer == 999);
-    assert(evaluate("y +o *(   a-u)  ", m, pf, answer) == 0  &&
-           pf == "yoau-*+"  &&  answer == -1);
-    answer = 999;
-    assert(evaluate("o/(y-y)", m, pf, answer) == 3  &&
-           pf == "oyy-/"  &&  answer == 999);
-    assert(evaluate(" a  ", m, pf, answer) == 0  &&
-           pf == "a"  &&  answer == 3);
-    assert(evaluate("((a))", m, pf, answer) == 0  &&
-           pf == "a"  &&  answer == 3);
-    cout << "Passed all tests" << endl;
+    
     cout << evaluate("a+e", m, pf, answer) << endl;
     cout << pf <<endl;
     cout << answer << endl;
